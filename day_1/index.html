@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .link-youtube {
+      cursor: pointer;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+    <div v-if="age < 10">
+      <p>Arief masih anak kecil</p>
+    </div>
+
+    <div v-else-if="age > 10 && age < 15">
+      <p>Arief Remaja</p>
+    </div>
+
+    <div v-else>
+      <p>Sudah Dewasa</p>
+    </div>
+
+
+    <!-- v-for -->
+    <ul>
+      <li v-for="(value,index) in todo" :key="index">{{value.title}}</li>
+    </ul>
+
+    <!-- v-model dan v-on -->
+    <!-- event bisa manggil function/methods -->
+    <form @submit.prevent="handleSubmit">
+      <input type="text" v-model="input">
+      <button>Tambah</button>
+    </form>
+
+    <input type="text" v-model="input">
+    <button v-on:click="handleClick">Tambah</button>
+
+    <p>Umur nya Bro Arief : {{age}}</p>
+    <button v-on:click="incrementAge" style="margin-right: 10px;">Tambah Umur</button>
+    <button v-on:click="decrementAge">Kurangin Umur</button>
+
+    <p @click="moveYoutube" class="link-youtube">Pergi Ke Youtube</p>
+
+    <!-- v-html -->
+    <p>Ini html</p>
+    <p v-html="programDescription"></p>
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const myApp = {
+      data () {
+        return {
+          text: "Arief Ardhan",
+          age: 20,
+          todo: [],
+          input: "", // two ways data binding
+          programDescription: "<strong>Hallo</strong><p>Ini adalah deskripsi</p>"
+        }
+      },
+
+      methods: {
+        handleSubmit () {
+          this.todo.push({ title: this.input })
+          this.input = ""
+        },
+        handleClick () {
+          this.todo.push({ title: this.input })
+          this.input = ""
+        },
+        incrementAge () {
+          this.age++
+        },
+        decrementAge () {
+          this.age--
+        },
+        moveYoutube () {
+          window.open('https://youtube.com')
+        }
+      },
+
+      computed: {}
+    }
+    Vue.createApp(myApp).mount('#app')
+  </script>
+</body>
+</html>
